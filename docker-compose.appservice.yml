@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  backend:
+    image: beautiful666.azurecr.io/azure-app-backend:latest
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      AZURE_STORAGE_CONNECTION_STRING: ${AZURE_STORAGE_CONNECTION_STRING}
+      AZURE_STORAGE_CONTAINER: ${AZURE_STORAGE_CONTAINER}
+
+  frontend:
+    image: beautiful666.azurecr.io/azure-app-frontend:latest
+
+  nginx:
+    image: beautiful666.azurecr.io/azure-app-nginx:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
